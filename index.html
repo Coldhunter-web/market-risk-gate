@@ -12,99 +12,57 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      /* 배경: 카드보다 확실히 어둡게 */
       --bg:      #06070a;
       --card:    #0f1116;
-      --card2:   #13151c;
       --border:  #1e2130;
       --border2: #262a38;
-
-      /* 텍스트 */
       --text:    #e2e4ec;
       --sub:     #5a6075;
       --dim:     #2e3245;
-
-      /* 톤다운 옐로우 (iOS 시스템 옐로우 참고, 채도 낮춤) */
       --accent:  #c8a84b;
       --accent2: rgba(200,168,75,0.10);
-
-      /* 위험 티어 */
       --green:   #34c88a;
       --yellow:  #c8a84b;
       --orange:  #d97042;
       --red:     #c94444;
       --run:     #9b6fd4;
     }
-
     *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
     html { height:100%; }
-
     body {
       min-height: 100dvh;
       background: var(--bg);
       color: var(--text);
       font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-font-smoothing: antialiased;
-      display: flex;
-      flex-direction: column;
+      display: flex; flex-direction: column;
       overscroll-behavior: none;
       padding-bottom: env(safe-area-inset-bottom, 24px);
     }
 
-    /* ─── HEADER ─────────────────────────────── */
     .hdr {
       padding: 54px 22px 14px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
+      display: flex; align-items: flex-end; justify-content: space-between;
     }
-
-    .hdr-left {}
-
     .hdr-eyebrow {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 4px;
+      font-size: 10px; font-weight: 500; letter-spacing: 1.8px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 4px;
     }
-
     .hdr-title {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-      color: var(--text);
-      line-height: 1.1;
+      font-size: 20px; font-weight: 600; letter-spacing: -0.3px; line-height: 1.1;
     }
-
-    .hdr-title span {
-      color: var(--sub);
-      font-weight: 300;
-    }
-
+    .hdr-title span { color: var(--sub); font-weight: 300; }
     .hdr-ts {
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--sub);
-      text-align: right;
-      line-height: 1.6;
+      font-size: 10px; color: var(--sub); text-align: right; line-height: 1.6;
     }
 
-    /* ─── SCORE CARD ──────────────────────────── */
     .score-card {
       margin: 12px 16px 0;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 18px 18px 16px;
-      display: flex;
-      gap: 16px;
-      align-items: center;
+      background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+      padding: 18px; display: flex; gap: 16px; align-items: center;
       transition: border-color .7s ease;
     }
-
-    /* 게이지 */
     .gauge { position: relative; width: 82px; height: 82px; flex-shrink: 0; }
     .gauge svg { width: 82px; height: 82px; transform: rotate(-90deg); display: block; }
     .g-track { fill: none; stroke: var(--border2); stroke-width: 4.5; }
@@ -115,190 +73,97 @@
     }
     .gauge-mid {
       position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
     }
     .g-num {
-      font-size: 30px; font-weight: 600; line-height: 1;
-      letter-spacing: -1px;
-      color: var(--sub);
-      transition: color .5s ease;
+      font-size: 30px; font-weight: 600; line-height: 1; letter-spacing: -1px;
+      color: var(--sub); transition: color .5s ease;
     }
     .g-unit {
-      font-family: 'DM Mono', monospace;
-      font-size: 8px; color: var(--sub);
-      letter-spacing: 1.5px; margin-top: 2px;
+      font-family: 'DM Mono', monospace; font-size: 8px;
+      color: var(--sub); letter-spacing: 1.5px; margin-top: 2px;
     }
-
-    /* 스코어 정보 */
     .score-info { flex: 1; min-width: 0; }
-
     .tier-pill {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 11px; font-weight: 600; letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 4px 10px; border-radius: 99px;
-      border: 1px solid currentColor;
-      background: transparent;
-      margin-bottom: 9px;
-      color: var(--sub);
+      font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 99px; border: 1px solid currentColor;
+      margin-bottom: 9px; color: var(--sub);
       transition: color .5s, border-color .5s, background .5s;
     }
     .tier-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink:0; }
+    .act-main { font-size: 14px; font-weight: 500; line-height: 1.35; }
+    .act-sub  { font-size: 11px; color: var(--sub); margin-top: 5px; line-height: 1.5; }
 
-    .act-main {
-      font-size: 14px; font-weight: 500; line-height: 1.35;
-      color: var(--text);
-    }
-    .act-sub {
-      font-size: 11px; color: var(--sub);
-      margin-top: 5px; line-height: 1.5;
-    }
-
-    /* ─── FETCH BUTTON ────────────────────────── */
     .btn-wrap { padding: 10px 16px 8px; }
-
     .fetch-btn {
-      width: 100%;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-      background: var(--accent2);
-      border: 1px solid rgba(200,168,75,0.22);
-      border-radius: 14px;
-      color: var(--accent);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px; font-weight: 600;
-      letter-spacing: 0.2px;
-      padding: 14px 20px;
-      cursor: pointer;
+      width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: var(--accent2); border: 1px solid rgba(200,168,75,0.22);
+      border-radius: 14px; color: var(--accent);
+      font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+      padding: 14px 20px; cursor: pointer;
       transition: background .2s, opacity .2s, transform .1s;
       -webkit-tap-highlight-color: transparent;
     }
     .fetch-btn:active { transform: scale(.98); background: rgba(200,168,75,0.15); }
     .fetch-btn.loading { opacity: .5; pointer-events: none; }
-
     .spin {
       width: 14px; height: 14px;
-      border: 1.5px solid rgba(200,168,75,.3);
-      border-top-color: var(--accent);
-      border-radius: 50%; display: none;
-      animation: spin .7s linear infinite;
+      border: 1.5px solid rgba(200,168,75,.3); border-top-color: var(--accent);
+      border-radius: 50%; display: none; animation: spin .7s linear infinite;
     }
     .fetch-btn.loading .spin    { display: block; }
     .fetch-btn.loading .btn-ico { display: none; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ─── STATUS ──────────────────────────────── */
     .status {
-      margin: 0 16px 8px;
-      padding: 9px 13px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 11px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px; color: var(--sub);
-      line-height: 1.5;
-      display: none;
+      margin: 0 16px 8px; padding: 9px 13px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 11px;
+      font-family: 'DM Mono', monospace; font-size: 11px; color: var(--sub);
+      line-height: 1.5; display: none;
     }
     .status.on { display: block; }
 
-    /* ─── INDICATORS ──────────────────────────── */
+    .divider { height: 1px; background: var(--border); margin: 0 16px; }
     .sec-lbl {
       padding: 6px 22px 7px;
-      font-family: 'DM Mono', monospace;
-      font-size: 9px; letter-spacing: 2px;
-      color: var(--dim); text-transform: uppercase;
+      font-family: 'DM Mono', monospace; font-size: 9px;
+      letter-spacing: 2px; color: var(--dim); text-transform: uppercase;
     }
-
-    .grid {
-      padding: 0 16px;
-      display: flex; flex-direction: column; gap: 6px;
-    }
+    .grid { padding: 0 16px; display: flex; flex-direction: column; gap: 6px; }
 
     .icard {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 13px 15px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 13px 15px;
       display: flex; align-items: center; gap: 12px;
       transition: border-color .5s;
     }
     .icard.hit { border-color: var(--border2); }
-
     .ic-left { flex: 1; min-width: 0; }
-
-    .ic-tick {
-      font-size: 15px; font-weight: 600;
-      letter-spacing: -.2px; line-height: 1;
-      color: var(--text);
-    }
-    .ic-name {
-      font-size: 10px; color: var(--sub);
-      margin-top: 2px; font-weight: 400;
-    }
-    .ic-row {
-      margin-top: 6px;
-      display: flex; align-items: baseline; gap: 6px;
-    }
-    .ic-price {
-      font-family: 'DM Mono', monospace;
-      font-size: 13px; font-weight: 500;
-    }
-    .ic-chg {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-    }
+    .ic-tick { font-size: 15px; font-weight: 600; letter-spacing: -.2px; line-height: 1; }
+    .ic-name { font-size: 10px; color: var(--sub); margin-top: 2px; }
+    .ic-row  { margin-top: 6px; display: flex; align-items: baseline; gap: 6px; }
+    .ic-price { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; }
+    .ic-chg   { font-family: 'DM Mono', monospace; font-size: 10px; }
     .up   { color: var(--green); }
     .dn   { color: var(--red);   }
     .flat { color: var(--sub);   }
-
-    .ic-right {
-      display: flex; flex-direction: column;
-      align-items: flex-end; gap: 5px;
-      flex-shrink: 0;
-    }
+    .ic-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
     .ic-score {
-      font-size: 22px; font-weight: 600;
-      line-height: 1; letter-spacing: -1px;
-      color: var(--dim);
-      transition: color .5s;
-      min-width: 36px; text-align: right;
+      font-size: 22px; font-weight: 600; line-height: 1; letter-spacing: -1px;
+      color: var(--dim); transition: color .5s; min-width: 36px; text-align: right;
     }
-    .bar-wrap {
-      width: 42px; height: 3px;
-      background: var(--border); border-radius: 99px; overflow: hidden;
-    }
-    .bar-fill {
-      height: 100%; border-radius: 99px;
-      width: 0; background: var(--dim);
-      transition: width .9s cubic-bezier(.4,0,.2,1), background .5s;
-    }
-    .ic-wt {
-      font-family: 'DM Mono', monospace;
-      font-size: 9px; color: var(--dim);
-    }
+    .bar-wrap { width: 42px; height: 3px; background: var(--border); border-radius: 99px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 99px; width: 0; background: var(--dim); transition: width .9s cubic-bezier(.4,0,.2,1), background .5s; }
+    .ic-wt { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--dim); }
 
-    /* ─── LEGEND ──────────────────────────────── */
-    .legend {
-      padding: 14px 22px 10px;
-      display: flex; flex-wrap: wrap; gap: 10px;
-    }
-    .leg {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 10px; color: var(--sub); font-weight: 400;
-    }
+    .legend { padding: 14px 22px 10px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; color: var(--sub); }
     .ldot { width: 6px; height: 6px; border-radius: 50%; flex-shrink:0; }
-
-    /* ─── DIVIDER ─────────────────────────────── */
-    .divider {
-      height: 1px;
-      background: var(--border);
-      margin: 0 16px;
-    }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="hdr">
   <div class="hdr-left">
     <div class="hdr-eyebrow">US Market</div>
@@ -307,7 +172,6 @@
   <div class="hdr-ts" id="ts">—</div>
 </div>
 
-<!-- SCORE CARD -->
 <div class="score-card" id="scoreCard">
   <div class="gauge">
     <svg viewBox="0 0 82 82">
@@ -329,7 +193,6 @@
   </div>
 </div>
 
-<!-- FETCH BUTTON -->
 <div class="btn-wrap">
   <button class="fetch-btn" id="fetchBtn" onclick="run()">
     <svg class="btn-ico" width="14" height="14" viewBox="0 0 24 24" fill="none"
@@ -343,15 +206,12 @@
   </button>
 </div>
 
-<!-- STATUS -->
 <div class="status" id="status"></div>
 
-<!-- INDICATORS -->
 <div class="divider"></div>
 <div class="sec-lbl">Indicators</div>
 <div class="grid" id="grid"></div>
 
-<!-- LEGEND -->
 <div class="legend">
   <div class="leg"><div class="ldot" style="background:var(--green)"></div>GREEN 0–25</div>
   <div class="leg"><div class="ldot" style="background:var(--yellow)"></div>YELLOW 26–45</div>
@@ -371,11 +231,11 @@ const INDS = [
 ];
 
 const TIERS = {
-  GREEN:  { col:'var(--green)',  glow:'rgba(52,200,138,.18)',  action:'Market Stable',   sub:'Normal allocation. Consider adding positions.' },
-  YELLOW: { col:'var(--yellow)', glow:'rgba(200,168,75,.18)',  action:'Caution',          sub:'Avoid new entries. Monitor existing positions.' },
-  ORANGE: { col:'var(--orange)', glow:'rgba(217,112,66,.18)',  action:'Elevated Risk',    sub:'Begin reducing exposure. Raise cash allocation.' },
-  RED:    { col:'var(--red)',    glow:'rgba(201,68,68,.18)',   action:'High Risk',        sub:'Cut exposure significantly. Consider hedges.' },
-  RUN:    { col:'var(--run)',    glow:'rgba(155,111,212,.18)', action:'Exit Signal',      sub:'Full exit or inverse positions. Maximize cash.' },
+  GREEN:  { col:'var(--green)',  glow:'rgba(52,200,138,.18)',  action:'Market Stable',  sub:'Normal allocation. Consider adding positions.' },
+  YELLOW: { col:'var(--yellow)', glow:'rgba(200,168,75,.18)',  action:'Caution',         sub:'Avoid new entries. Monitor existing positions.' },
+  ORANGE: { col:'var(--orange)', glow:'rgba(217,112,66,.18)',  action:'Elevated Risk',   sub:'Begin reducing exposure. Raise cash allocation.' },
+  RED:    { col:'var(--red)',    glow:'rgba(201,68,68,.18)',   action:'High Risk',       sub:'Cut exposure significantly. Consider hedges.' },
+  RUN:    { col:'var(--run)',    glow:'rgba(155,111,212,.18)', action:'Exit Signal',     sub:'Full exit or inverse positions. Maximize cash.' },
 };
 const EMOJI = { GREEN:'🟢', YELLOW:'🟡', ORANGE:'🟠', RED:'🔴', RUN:'🚨' };
 
@@ -383,7 +243,6 @@ function getTier(s) {
   return s<=25?'GREEN': s<=45?'YELLOW': s<=65?'ORANGE': s<=85?'RED':'RUN';
 }
 
-/* 그리드 초기화 */
 function initGrid() {
   document.getElementById('grid').innerHTML = INDS.map(d => `
     <div class="icard" id="c-${d.id}">
@@ -403,121 +262,70 @@ function initGrid() {
     </div>`).join('');
 }
 
-/* 카드 업데이트 */
 function fillCard(d, price, pct, score) {
   const t  = TIERS[getTier(score)];
   const cl = pct > 0 ? 'up' : pct < 0 ? 'dn' : 'flat';
-
   const pEl = document.getElementById(`p-${d.id}`);
   pEl.textContent = typeof price === 'number' ? price.toFixed(2) : price;
   pEl.className   = 'ic-price ' + cl;
-
   const cEl = document.getElementById(`ch-${d.id}`);
   cEl.textContent = (pct >= 0 ? '+' : '') + pct.toFixed(2) + '%';
   cEl.className   = 'ic-chg ' + cl;
-
   const sc = document.getElementById(`sc-${d.id}`);
   sc.textContent  = score;
   sc.style.color  = t.col;
-
   const bar = document.getElementById(`b-${d.id}`);
   bar.style.width      = score + '%';
   bar.style.background = t.col;
-
   document.getElementById(`c-${d.id}`).classList.add('hit');
 }
 
-/* 게이지 + 헤더 업데이트 */
 function fillGauge(score, tk) {
-  const t    = TIERS[tk];
-  const circ = 207.3;
-  const gf   = document.getElementById('gFill');
-  gf.style.strokeDashoffset = circ - (score / 100) * circ;
+  const t = TIERS[tk];
+  const gf = document.getElementById('gFill');
+  gf.style.strokeDashoffset = 207.3 - (score / 100) * 207.3;
   gf.style.stroke = t.col;
-
   const gn = document.getElementById('gNum');
-  gn.textContent  = score;
-  gn.style.color  = t.col;
-
+  gn.textContent = score;
+  gn.style.color = t.col;
   const pill = document.getElementById('tierPill');
-  pill.style.color       = t.col;
-  pill.style.borderColor = t.col;
-  pill.style.background  = t.col.replace('var(', '').replace(')', '') + '10';
+  pill.style.color = pill.style.borderColor = t.col;
   document.getElementById('tierTxt').textContent = EMOJI[tk] + ' ' + tk;
-
   document.getElementById('actMain').textContent = t.action;
   document.getElementById('actSub').textContent  = t.sub;
   document.getElementById('scoreCard').style.borderColor = t.glow;
 }
 
-/* 상태 */
 function setStatus(msg) {
   const el = document.getElementById('status');
   el.textContent = msg;
   el.classList.toggle('on', !!msg);
 }
 
-/* 타임스탬프 */
 function stamp() {
   const n = new Date(), pad = v => String(v).padStart(2, '0');
   document.getElementById('ts').innerHTML =
     `${n.getFullYear()}.${pad(n.getMonth()+1)}.${pad(n.getDate())}<br>${pad(n.getHours())}:${pad(n.getMinutes())}`;
 }
 
-/* ── MAIN ── */
 async function run() {
   const btn = document.getElementById('fetchBtn');
   btn.classList.add('loading');
-  setStatus('Fetching live data via Claude AI…');
-
-  const prompt = `You are a financial data assistant. Use web search to get the LATEST available prices for these 6 assets from Yahoo Finance or similar reliable financial sources.
-
-Assets:
-1. QQQ  - Invesco QQQ Trust (Nasdaq 100 ETF)
-2. SOXX - iShares Semiconductor ETF
-3. HYG  - iShares High Yield Corporate Bond ETF
-4. IEF  - iShares 7-10 Year Treasury Bond ETF
-5. TLT  - iShares 20+ Year Treasury Bond ETF
-6. WTI  - Crude Oil front-month futures price in USD per barrel
-
-Return ONLY a raw JSON object. No markdown, no explanation, no code block:
-{"qqq":{"price":0.00,"pct":0.00},"soxx":{"price":0.00,"pct":0.00},"hyg":{"price":0.00,"pct":0.00},"ief":{"price":0.00,"pct":0.00},"tlt":{"price":0.00,"pct":0.00},"wti":{"price":0.00,"pct":0.00}}
-
-pct = percentage change from previous close. Positive = up, negative = down.`;
+  setStatus('Fetching live market data…');
 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 800,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await res.json();
-    if (data.error) throw new Error(data.error.message);
-
-    const txt = (data.content || [])
-      .filter(b => b.type === 'text')
-      .map(b => b.text)
-      .join('');
-
-    const m = txt.match(/\{[\s\S]*?\}/);
-    if (!m) throw new Error('No JSON found in response.');
-
-    const prices = JSON.parse(m[0]);
+    const res = await fetch('/api/prices');
+    if (!res.ok) throw new Error('Server error ' + res.status);
+    const prices = await res.json();
+    if (prices.error) throw new Error(prices.error);
 
     let total = 0;
     INDS.forEach(d => {
       const e = prices[d.id];
       if (!e) return;
-      const pct   = e.pct ?? 0;
-      const risk  = d.inv ? pct : -pct;
+      const risk  = d.inv ? e.pct : -e.pct;
       const score = Math.round(Math.max(0, Math.min(100, 50 + (risk / 3) * 50)));
-      fillCard(d, e.price, pct, score);
+      fillCard(d, e.price, e.pct, score);
       total += score * d.w;
     });
 
@@ -527,7 +335,6 @@ pct = percentage change from previous close. Positive = up, negative = down.`;
     setStatus('Updated · ' + new Date().toLocaleTimeString('en-US', { hour:'2-digit', minute:'2-digit' }));
 
   } catch (e) {
-    console.error(e);
     setStatus('Error: ' + e.message);
   } finally {
     btn.classList.remove('loading');
